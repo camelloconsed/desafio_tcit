@@ -1,4 +1,7 @@
 {
+  "dependencies": {
+    "@nestjs/mapped-types": "*"
+  },
   "name": "@project/server",
   "version": "0.0.1",
   "private": true,
@@ -11,32 +14,14 @@
           "args": [
             "node-env=production"
           ]
-        },
-        "configurations": {
-          "development": {
-            "args": [
-              "node-env=development"
-            ]
-          }
         }
       },
       "serve": {
         "executor": "@nx/js:node",
-        "defaultConfiguration": "development",
-        "dependsOn": [
-          "build"
-        ],
+        "dependsOn": ["build"],
         "options": {
           "buildTarget": "@project/server:build",
           "runBuildTargetDependencies": false
-        },
-        "configurations": {
-          "development": {
-            "buildTarget": "@project/server:build:development"
-          },
-          "production": {
-            "buildTarget": "@project/server:build:production"
-          }
         }
       }
     }

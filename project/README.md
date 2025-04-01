@@ -1,82 +1,117 @@
-# Backend
+# Desafío TCIT - Gestión de Posts
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Este proyecto es una aplicación web que permite gestionar posts. Incluye un backend desarrollado con **Node.js** y **NestJS**, y un frontend desarrollado con **React** y **Redux**, estilizado con **Material-UI**.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+Realizado por Joaquín Navarro Quijanes.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/node?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## Funcionalidades
 
-## Finish your CI setup
+1. **Insertar posts**: Crear un nuevo post con nombre y descripción.
+2. **Eliminar posts**: Eliminar un post existente.
+3. **Listar posts**: Mostrar todos los posts en una tabla.
+4. **Filtrar posts por nombre**: Buscar posts por nombre localmente.
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/Rx8uJy8yCE)
+---
+
+## Requisitos
+
+Antes de comenzar, asegúrate de tener instalados los siguientes programas:
+
+- **Node.js** (versión LTS recomendada)
+- **npm** (incluido con Node.js)
+- **Docker** (para la base de datos PostgreSQL)
+
+---
+
+## Instalación
+
+1. Clonar repositorio
+
+Clona este repositorio en tu máquina local:
+
+```bash
+git clone <URL_DEL_REPOSITORIO>
+cd <NOMBRE_DEL_REPOSITORIO>
+
+******************************************************************************************
+
+# 2 Configurar el backend
+
+2.1. Configurar la base de datos
+El proyecto utiliza PostgreSQL como base de datos. Puedes levantar un contenedor de Docker con el siguiente comando:
+
+docker run --name posts_db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=pass -e POSTGRES_DB=posts_db -p 5432:5432 -d postgres
+
+2.2. Instalar dependencias del backend
+Navega a la carpeta del backend e instala las dependencias:
+
+cd server
+npm install
+
+2.3. Configurar las variables de entorno
+Crea un archivo .env en la carpeta server con el siguiente contenido:
+
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_USER=postgres
+DATABASE_PASSWORD=pass
+DATABASE_NAME=posts_db
+
+2.4. Levantar el backend
+Levanta el servidor backend con el siguiente comando:
+
+npx nx serve server
+
+El backend estará disponible en http://localhost:3000/api.
 
 
-## Run tasks
-
-To run the dev server for your app, use:
-
-```sh
-npx nx serve backend
-```
-
-To create a production bundle:
-
-```sh
-npx nx build backend
-```
-
-To see all available targets to run for a project, run:
-
-```sh
-npx nx show project backend
-```
-
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/node:app demo
-```
-
-To generate a new library, use:
-
-```sh
-npx nx g @nx/node:lib mylib
-```
-
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
-
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+******************************************************************************************
 
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+3. Configurar el frontend
+3.1. Instalar dependencias del frontend
+Navega a la carpeta del frontend e instala las dependencias:
 
-## Install Nx Console
+cd ../frontend
+npm install
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+3.2. Configurar las variables de entorno
+Crea un archivo .env en la carpeta frontend con el siguiente contenido:
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+VITE_API_URL=http://localhost:3000/api
 
-## Useful links
+3.3. Levantar el frontend
+Levanta el servidor de desarrollo del frontend con el siguiente comando:
 
-Learn more:
+npx nx serve frontend
 
-- [Learn more about this workspace setup](https://nx.dev/nx-api/node?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+El frontend estará disponible en http://localhost:4200.
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Abre el navegador y navega a http://localhost:4200.
+Usa la barra de búsqueda para filtrar posts por nombre.
+Usa el formulario para crear nuevos posts.
+Usa el botón "Eliminar" en la tabla para borrar posts.
+
+project/
+├── server/                # Backend (Node.js + NestJS)
+│   ├── src/
+│   │   ├── app/           # Configuración principal
+│   │   ├── post/          # Módulo de posts
+│   │   └── main.ts        # Punto de entrada del backend
+│   ├── .env               # Variables de entorno del backend
+│   └── package.json       # Dependencias del backend
+├── frontend/              # Frontend (React + Redux)
+│   ├── src/
+│   │   ├── components/    # Componentes de React
+│   │   ├── features/      # Redux slices
+│   │   ├── app/           # Configuración de Redux
+│   │   └── api.ts         # Consultas al backend
+│   ├── .env               # Variables de entorno del frontend
+│   └── package.json       # Dependencias del frontend
+└── [README.md](http://_vscodecontentref_/1)              # Documentación del proyecto
+
+Notas
+Asegúrate de que Docker esté corriendo antes de levantar el backend.
+Si cambias el puerto del backend o frontend, actualiza las variables de entorno correspondientes.
+Para producción, configura correctamente las variables de entorno y usa un servidor como Nginx para servir el frontend.
+

@@ -1,31 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from './counterSlice';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setPosts } from '../features/posts/postSlice';
+import PostFilter from '../components/PostFilter';
+import PostTable from '../components/PostTable';
+import PostForm from '../components/PostForm';
+import { fetchPosts } from '../api';
 
-const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-  },
-});
 
-function App() {
-  const [message, setMessage] = useState('');
+const App: React.FC = () => {
+  const [originalPosts, setOriginalPosts] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch('http://localhost:3000/api')
-      .then((res) => res.json())
-      .then((data) => setMessage(data.message));
-  }, []);
+    fetchPosts()
+      .then((data) => {
+        setOriginalPosts(data);
+        dispatch(setPosts(data));
+      })
+      .catch((error) => {
+        console.error('Error fetching posts:', error);
+      });
+  }, [dispatch]);
 
   return (
-    <Provider store={store}>
-      <div>
-        <h1>React + Redux + Nx</h1>
-        <p>Message from backend: {message}</p>
-      </div>
-    </Provider>
+    <div>
+      <h1>Gestión de Posts</h1>
+      <PostFilter originalPosts={originalPosts} />
+      <PostTable />
+      <PostForm />
+    </div>
   );
-}
+};
 
 export default App;
